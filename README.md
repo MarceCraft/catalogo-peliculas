@@ -4,6 +4,9 @@
 En este repo se hacen pruebas con un catalogo de peliculas usando javascript,html,css puro sin usar frameworks etc. Por sierto este repo esta mal esto solo es una prueba no es real
 
 
+>>Esto es una mini advertencia ESTO NO ES REAL!! no seguir nada de aqui porfas
+
+
 ## links
 
  - [Esto](#)
