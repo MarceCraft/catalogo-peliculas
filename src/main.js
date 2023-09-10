@@ -252,6 +252,19 @@ async function getMovieById(id) {
     renderCategories(movie.genres,movieDetailCategoriesList);
     getRelatedMoviesId(id);
 }
+async function getRelatedMoviesId(id) {
+    const {data} = await api(`movie/${id}/recommendations`);
+    const relatedMovies = data.results;
+    relatedMoviesContainer.innerHTML = "";
+    relatedMovies.forEach(movie => renderMovie(movie,relatedMoviesContainer));
+}
+function getLikedMovies() {
+    const likedMovies = likedMoviesList();
+    //convierte objetos es del solo el value en un arreglo ejem {key:value} => [value]
+    const moviesArray =  Object.values(likedMovies);
+    likedMoviesListArticle.innerHTML = "";
+    moviesArray.forEach(movie => renderMovie(movie,likedMoviesListArticle,true));
+}
 
 
 
