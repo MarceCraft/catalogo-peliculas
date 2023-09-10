@@ -8,7 +8,6 @@ FR:{country:"France",language:"Français",language_iso:"fr-FR",country_icon:"�
 MX:{country:"Mexico",language:"Español",language_iso:"es-MX",country_icon:"🇲🇽"}
 };
 
-//buscar es una pila
 const searchInput = new Stack();
 searchFormBtn.addEventListener("click", ()=>{
     location.hash="#search="+searchFormInput.value;
@@ -17,7 +16,6 @@ searchFormBtn.addEventListener("click", ()=>{
 trendingBtn.addEventListener("click", ()=>{
     location.hash="#trends";
 });
-//aqui es para ir atras
 arrowBtn.addEventListener('click',()=>{
     if (location.hash.startsWith('#search=')) {
         searchInput.pop();
@@ -35,7 +33,6 @@ arrowBtn.addEventListener('click',()=>{
 });
 
 addEventListener("DOMContentLoaded",navigator,false);
-//cuando cambia de # en la url
 addEventListener("hashchange",navigator,false);
 languageSelect.addEventListener("click",e => {
     const collectButton = document.createElement("DIV");
@@ -139,7 +136,6 @@ function categoriesPage() {
     likedMoviesSection.classList.add('inactive');
     genericSection.classList.remove('inactive');
     movieDetailSection.classList.add("inactive");
-    //se asignan a variables en base a las pocisiones del arreglo
     const [_,categoryData] = location.hash.split('=');
     const [categoryId,categoryName] = categoryData.split('-');
     headerCategoryTitle.innerHTML = categoryName;
@@ -150,7 +146,6 @@ function movieDetailsPage() {
     console.log("movie!!");
 
     headerSection.classList.add('header-container--long');
-    //headerSection.style.background="";
     arrowBtn.classList.remove('inactive');
     arrowBtn.classList.add('header-arrow--white');
     headerTitle.classList.add('inactive');
@@ -211,12 +206,3 @@ function trendsPage() {
     getTrendingMovies();
     infiniteScroll = {functions:getPaginatedTrendingMovies,parameters:null};
 }
-/**paginacion : tiene distintas paginas ademas una ventaja  es que se especifica mas facilmente donde esta el contenido pero no es tan adictivo
- * scroll infinito : cada vez que se  escrolea llega mas contenido lo malo es que es muy dificil encontrar contenido especifico si se usara footer no usarlo
- * ambas usan las SPA single page aplication
-*/
-
-/**
- * Reto : 
- * cada vez que se haga like a una pelicula tiene que ser actualizada en la misma pagina sin recargar    *pista :es un evento del localstorage  
- */
