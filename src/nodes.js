@@ -1,4 +1,5 @@
 "use strict";
+//Sections
 const headerSection=document.querySelector('#header');
 const trendingPreviewSection=document.querySelector('#trendingPreview');
 const categoriesPreviewSection=document.querySelector('#categoriesPreview');
@@ -6,6 +7,7 @@ const genericSection=document.querySelector('#genericList');
 const movieDetailSection=document.querySelector('#movieDetail');
 const likedMoviesSection=document.querySelector("#liked");
 
+//list & Containers
 const searchForm=document.querySelector('#searchForm');
 const trendingMoviesPreviewList=document.querySelector('.trendingPreview-movieList');
 const categoriesPreviewList=document.querySelector('.categoriesPreview-list');

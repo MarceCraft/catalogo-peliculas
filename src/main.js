@@ -4,6 +4,7 @@ let api = axios.create({
     headers:{
         'Content-Type':'application/json;charset=utf-8'
     },
+    //para agregar parametros revisar documentacion
     params: {
         'api_key':API_KEY,
     }
@@ -40,7 +41,10 @@ function callback(entries) {
 }
 const lazyLoader = new IntersectionObserver(callback);
 
+//cambiar codigo repetido
 async function getTrendingMoviesPreview() {
+    //es importante que todas las api tengan versiones ya que si se quiere cambiar en el futuro algunos usuarios pueden estar usando la 
+    //anterior version y la nueva version debe trasladarse a otro nuevo
     const {data} = await api(`trending/movie/day`); 
     const movies = data.results;
     trendingMoviesPreviewList.innerHTML="";
@@ -48,12 +52,19 @@ async function getTrendingMoviesPreview() {
     movies.forEach(movie => renderMovie(movie,trendingMoviesPreviewList,true));
 }
 const getCategegoriesPreview = async function() {
+    //es importante que todas las api tengan versiones ya que si se quiere cambiar en el futuro algunos usuarios pueden estar usando la 
+    //anterior version y la nueva version debe trasladarse a otro nuevo
     const {data} = await api(`genre/movie/list`); 
     const categories = data.genres;
     renderCategories(categories,categoriesPreviewList);
 }
-
+/*es de tu url el #cualquier cosa
+location.hash 
+//cada vez que cambie el hash
+addEventListener("hashchange",e=>console.log(e));*/
 async function getMoviesByCategory(id) {
+    //es importante que todas las api tengan versiones ya que si se quiere cambiar en el futuro algunos usuarios pueden estar usando la 
+    //anterior version y la nueva version debe trasladarse a otro nuevo
     const {data} = await api(`discover/movie`,{
         params: {
             with_genres:id,
@@ -84,6 +95,8 @@ async function getPaginatedMoviesByCategory(id) {
 }
 
 async function getMoviesBySearch(query) {
+    //es importante que todas las api tengan versiones ya que si se quiere cambiar en el futuro algunos usuarios pueden estar usando la 
+    //anterior version y la nueva version debe trasladarse a otro nuevo
     const {data} = await api(`search/movie`,{
         params: {
             query
@@ -113,6 +126,27 @@ async function getPaginatedMoviesBySearch(query) {
     }
 }
 
+//utilizando closurs
+/*function getPaginatedMoviesBySearch(query) {
+    return async () => {
+        const {scrollTop,scrollHeight,clientHeight} = document.documentElement;
+        const scrollIsBottom = (scrollTop+clientHeight) >= (scrollHeight - 15);
+        const pageIsNotMax = page < maxPage;
+        if (scrollIsBottom && pageIsNotMax) {
+            page++;
+            const {data} = await api(`search/movie`,{
+                params: {
+                    query,
+                    page
+                },
+            }); 
+            const movies = data.results;
+            movies.forEach(movie => renderMovie(movie,genericSection));
+        }
+    }
+}*/
+
+
 function renderMovie(movie,container,lazyLoad=false) {
     const movieContainer = document.createElement("DIV");
     movieContainer.classList.add('movie-container');
@@ -133,6 +167,7 @@ function renderMovie(movie,container,lazyLoad=false) {
 
     const movieBtn = document.createElement("BUTTON");
     movieBtn.classList.add("movie-btn");
+    //si la primero condicion se cumple se cumple lo que sigue despues del &&
     likedMoviesList()[movie.id] && movieBtn.classList.add('movie-btn--liked');
 
     movieBtn.addEventListener("click", () => {
@@ -174,6 +209,10 @@ async function getTrendingMovies() {
     genericSection.innerHTML="";
 
     movies.forEach(movie => renderMovie(movie,genericSection));
+    /*const btnLoadMore = document.createElement("BUTTON");
+    btnLoadMore.innerHTML = "cargar mas";
+    btnLoadMore.addEventListener("click",getPaginatedTrendingMovies);
+    genericSection.appendChild(btnLoadMore)*/
 }
 async function getPaginatedTrendingMovies() {
     const {scrollTop,scrollHeight,clientHeight} = document.documentElement;
@@ -189,6 +228,11 @@ async function getPaginatedTrendingMovies() {
         const movies = data.results;
         movies.forEach(movie => renderMovie(movie,genericSection));
     }
+
+    /*const btnLoadMore = document.createElement("BUTTON");
+    btnLoadMore.innerHTML = "cargar mas";
+    btnLoadMore.addEventListener("click",getPaginatedTrendingMovies);
+    genericSection.appendChild(btnLoadMore);*/
 }
 async function getMovieById(id) {
     const {data:movie} = await api(`movie/${id}`); 
